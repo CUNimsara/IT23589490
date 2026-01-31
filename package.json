@@ -1,0 +1,16 @@
+{
+  "name": "translation-tests",
+  "version": "1.0.0",
+  "description": "Playwright tests for Singlish to Sinhala translation",
+  "scripts": {
+    "test": "playwright test",
+    "test:chrome": "playwright test --project=chromium",
+    "test:positive": "playwright test tests/positive.spec.ts",
+    "test:negative": "playwright test tests/negative.spec.ts",
+    "test:ui": "playwright test tests/ui.spec.ts",
+    "report": "playwright show-report"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
+}

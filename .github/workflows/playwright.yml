@@ -1,0 +1,37 @@
+name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Install Playwright browsers
+      run: npx playwright install chromium  # Install only Chrome for speed
+      
+    - name: Run Playwright tests
+      run: npx playwright test --project=chromium  # Explicitly run Chrome only
+      env:
+        CI: true  # This tells Playwright to run in CI mode (headless)
+        
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
